@@ -6,7 +6,7 @@
 #    By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/27 09:51:14 by cromalde          #+#    #+#              #
-#    Updated: 2021/03/27 14:25:58 by cromalde         ###   ########.fr        #
+#    Updated: 2021/03/28 15:17:20 by cromalde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ RUN		openssl req -new -newkey rsa:2048 -nodes -days 365 -x509 \
 
 RUN		ssh-keygen -A && \
 		adduser -D ssh_admin && \
-		echo "ssh_admin:password" | chpasswd
+		echo "ssh_admin:0101" | chpasswd
 
 EXPOSE	22 80 443
 

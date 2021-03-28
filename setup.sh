@@ -4,7 +4,11 @@
 docker build -t ngx ./nginx/
 # Build mysql
 docker build -t mysql ./mysql/
-# Build Wordpress
+# Build PhpMyAdmin
+Docker build -t phpmyadmin ./phpmyadmin/
+
+# Deploy Web-Dashboard
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
 
 #deploy metallb
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.6/manifests/namespace.yaml
@@ -22,6 +26,8 @@ kubectl apply -f ./mysql/mysql-service.yaml
 kubectl apply -f ./mysql/mysql-volume-claim.yaml
 
 #Deploy	Phpmyadmin
+kubectl apply -f ./phpmyadmin/phpmad-deployment.yaml
+kubectl apply -f ./phpmyadmin/phpmad-service.yaml
 
 #Deploy	Wordpress
 

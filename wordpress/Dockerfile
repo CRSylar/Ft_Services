@@ -5,26 +5,31 @@
 #                                                     +:+ +:+         +:+      #
 #    By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/03/27 16:47:00 by cromalde          #+#    #+#              #
-#    Updated: 2021/03/28 17:34:02 by cromalde         ###   ########.fr        #
+#    Created: 2021/03/28 11:13:41 by cromalde          #+#    #+#              #
+#    Updated: 2021/03/28 11:54:54 by cromalde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #	-*-		Dockerfile		-*-
 
-FROM	alpine
+FROM	alpine:latest
 
-COPY	setup.sh wordpress.sql my.cnf ./
+COPY	index.html nginx.conf setup.sh /
 
-RUN		apk update && \
-		apk add --no-cache nano mysql mysql-client openrc
+RUN		apk update && apk add --no-cache nginx openssl wget php
 
-RUN		mv my.cnf ./etc/mysql/
-RUN		mkdir /run/mysqld
+RUN		mkdir www /run/nginx && \
+		mv index.html /www/ && \
+		mv nginx.conf /etc/nginx/
 
-VOLUME	["/var/lib"]
-VOLUME	["sys/fs/cgroup"]
+RUN		openssl req -new -newkey rsa:2048 -nodes -days 365 -x509 \
+		-subj "/C=IT/L=Rome/O=42/OU=Federation/CN=localhost" \
+		-keyout /etc/ssl/private/services.key -out /etc/ssl/certs/services.crt
 
-EXPOSE	3306
+RUN		ssh-keygen -A && \
+		adduser -D ssh_admin && \
+		echo "ssh_admin:password" | chpasswd
+
+EXPOSE	5050
 
 CMD		./setup.sh

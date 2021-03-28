@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: phpmyadmin
   labels:
-    app: nginx
+    app: phpmyadmin
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: nginx
+      app: phpmyadmin
   template:
     metadata:
       labels:
-        app: nginx
+        app: phpmyadmin
     spec:
       containers:
-      - name: nginx
-        image: ngx
+      - name: phpmyadmin
+        image: phpmyadmin
+        ports:
+        - containerPort: 5000
         imagePullPolicy: Never
