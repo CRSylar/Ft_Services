@@ -13,16 +13,20 @@ spec:
       labels:
         app: mysql
     spec:
-      volumes:
-      - name: mysql-volume
-        persistentVolumeClaim:
-          claimName: mysql-claim
       containers:
-      - name: mysql
-        image: mysql
-        imagePullPolicy: Never
+      - image: mysql
+        name: mysql
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
         ports:
         - containerPort: 3306
+        imagePullPolicy: Never
         volumeMounts:
-        - name: mysql-volume
-          mountPath: /var/lib/
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
