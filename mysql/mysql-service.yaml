@@ -5,7 +5,7 @@ metadata:
 spec:
   ports:
   - port: 3306
+    targetPort: http
   selector:
     app: mysql
-  clusterIP: None
-
+  type: ClusterIP

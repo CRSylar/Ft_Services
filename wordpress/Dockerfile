@@ -6,30 +6,28 @@
 #    By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/28 11:13:41 by cromalde          #+#    #+#              #
-#    Updated: 2021/03/28 11:54:54 by cromalde         ###   ########.fr        #
+#    Updated: 2021/03/29 13:01:00 by cromalde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #	-*-		Dockerfile		-*-
 
-FROM	alpine:latest
+FROM alpine:latest
 
-COPY	index.html nginx.conf setup.sh /
+COPY setup.sh ./
 
-RUN		apk update && apk add --no-cache nginx openssl wget php
+RUN apk update && \
+	apk add --no-cache php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib
+RUN apk add --no-cache php7-curl php7-mbstring php7-json php7-session nginx
 
-RUN		mkdir www /run/nginx && \
-		mv index.html /www/ && \
-		mv nginx.conf /etc/nginx/
+COPY wordpress /www
+COPY wp-config.php /www/
 
-RUN		openssl req -new -newkey rsa:2048 -nodes -days 365 -x509 \
-		-subj "/C=IT/L=Rome/O=42/OU=Federation/CN=localhost" \
-		-keyout /etc/ssl/private/services.key -out /etc/ssl/certs/services.crt
+RUN mkdir -p /run/nginx && \
+	chmod 755 setup.sh
 
-RUN		ssh-keygen -A && \
-		adduser -D ssh_admin && \
-		echo "ssh_admin:password" | chpasswd
+COPY nginx.conf /etc/nginx/
 
-EXPOSE	5050
+EXPOSE 5050
 
-CMD		./setup.sh
+CMD ./setup.sh

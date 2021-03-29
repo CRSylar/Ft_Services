@@ -6,7 +6,7 @@
 #    By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/27 16:47:00 by cromalde          #+#    #+#              #
-#    Updated: 2021/03/28 17:34:02 by cromalde         ###   ########.fr        #
+#    Updated: 2021/03/29 11:46:30 by cromalde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,16 +14,12 @@
 
 FROM	alpine
 
-COPY	setup.sh wordpress.sql my.cnf ./
+COPY	setup.sh wordpress.sql ./
 
 RUN		apk update && \
-		apk add --no-cache nano mysql mysql-client openrc
+		apk add --no-cache mysql mysql-client
 
-RUN		mv my.cnf ./etc/mysql/
 RUN		mkdir /run/mysqld
-
-VOLUME	["/var/lib"]
-VOLUME	["sys/fs/cgroup"]
 
 EXPOSE	3306
 

@@ -6,6 +6,8 @@ docker build -t ngx ./nginx/
 docker build -t mysql ./mysql/
 # Build PhpMyAdmin
 Docker build -t phpmyadmin ./phpmyadmin/
+# Build Wordpress
+Docker build -t wordpress ./wordpress/
 
 # Deploy Web-Dashboard
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
@@ -30,4 +32,5 @@ kubectl apply -f ./phpmyadmin/phpmad-deployment.yaml
 kubectl apply -f ./phpmyadmin/phpmad-service.yaml
 
 #Deploy	Wordpress
-
+kubectl apply -f ./wordpress/wp-deployment.yaml
+kubectl apply -f ./wordpress/wp-service.yaml
