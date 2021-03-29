@@ -34,3 +34,4 @@ kubectl apply -f ./phpmyadmin/phpmad-service.yaml
 #Deploy	Wordpress
 kubectl apply -f ./wordpress/wp-deployment.yaml
 kubectl apply -f ./wordpress/wp-service.yaml
+kubectl apply -f ./wordpress/wp-claim.yaml
