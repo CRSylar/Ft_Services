@@ -67,8 +67,6 @@ $cfg['Servers'][$i]['password'] ='password';
  */
 $cfg['UploadDir'] = '';
 $cfg['SaveDir'] = '';
-$cfg['TempDir'] = '/tmp';
-$cfg['ServerDefault'] = 1;
 
 /**
  * Whether to display icons or text or both icons and text in table row
