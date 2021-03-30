@@ -45,7 +45,7 @@ kubectl apply -f ./ftps/ftps-service.yaml
 
 #Deploy Grafana
 kubectl apply -f ./grafana/grafana-deployment.yaml
-kubectl apply -f ./grafana/grafana-deployment.yaml
+kubectl apply -f ./grafana/grafana-service.yaml
 
 
 kubectl apply -f ./userUI.yaml
