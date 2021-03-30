@@ -15,7 +15,10 @@ spec:
     spec:
       containers:
       - name: ftps
-        image: ftps
+        image: ftps:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 21
+        - containerPort: 30000
+        - containerPort: 30001
+        - containerPort: 30002

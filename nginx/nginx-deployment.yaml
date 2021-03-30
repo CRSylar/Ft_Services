@@ -15,5 +15,5 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: ngx
+        image: ngx:latest
         imagePullPolicy: Never
