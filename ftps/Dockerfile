@@ -6,28 +6,31 @@
 #    By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/30 11:44:58 by cromalde          #+#    #+#              #
-#    Updated: 2021/03/30 13:31:31 by cromalde         ###   ########.fr        #
+#    Updated: 2021/03/30 14:58:24 by cromalde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #	-*-		Dockerfile		-*-
 
-FROM	alpine:latest
+FROM alpine:latest
 
-RUN		apk update && \
-		apk add --no-cache vsftpd openssl
+COPY setup.sh ./
 
-COPY	vsftpd.conf /etc/vsftpd/vsftpd.conf
+RUN apk update
 
-COPY	start_vsftpd.sh /bin/start_vsftpd.sh
+RUN	apk add --no-cache vsftpd openssl
+
+RUN	adduser -D admin && \
+	echo "admin:password" | chpasswd
+
+COPY vsftpd.conf /etc/vsftpd/
+
+RUN	echo "admin" >> /etc/vsftpd/vsftpd.userlist
 
 RUN		openssl req -new -newkey rsa:2048 -nodes -days 365 -x509 \
 		-subj "/C=IT/L=Rome/O=42/OU=Federation/CN=localhost" \
 		-keyout /etc/ssl/private/services.key -out /etc/ssl/certs/services.crt
 
-EXPOSE 21 21000-21010
-VOLUME /ftp/ftp
+EXPOSE 21 30000 30001 30002
 
-STOPSIGNAL	SIGKILL
-
-ENTRYPOINT	["/bin/start_vsftpd.sh"]
+CMD ./setup.sh

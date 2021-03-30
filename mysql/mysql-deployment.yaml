@@ -21,7 +21,7 @@ spec:
           containerPort: 3306
         volumeMounts:
         - name: mysql-data
-          mountPath: /var/lib/mysqlq
+          mountPath: /var/lib/mysqld
       volumes:
       - name: mysql-data
         persistentVolumeClaim:
