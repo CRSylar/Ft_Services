@@ -6,7 +6,7 @@
 #    By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/28 12:50:48 by cromalde          #+#    #+#              #
-#    Updated: 2021/03/29 16:45:25 by cromalde         ###   ########.fr        #
+#    Updated: 2021/03/30 10:49:01 by cromalde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 FROM	alpine:latest
 
-COPY	setup.sh config.inc.php default.conf ./
+COPY	setup.sh config.inc.php nginx.conf ./
 
 RUN		apk update
 RUN		apk add --no-cache wget nginx php7 php7-fpm php7-opcache php7-gd
@@ -26,7 +26,7 @@ RUN		wget https://files.phpmyadmin.net/phpMyAdmin/5.1.0/phpMyAdmin-5.1.0-all-lan
 RUN		tar xzf phpMyAdmin-5.1.0-all-languages.tar.gz
 RUN		rm -rf phpMyAdmin-5.1.0-all-languages.tar.gz
 RUN		mv phpMyAdmin-5.1.0-all-languages/ var/www/phpmyadmin
-RUN		mv default.conf etc/nginx/default.conf
+RUN		mv nginx.conf etc/nginx/nginx.conf
 RUN		mv config.inc.php /var/www/phpmyadmin/
 
 EXPOSE	5000
