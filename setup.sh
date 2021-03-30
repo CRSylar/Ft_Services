@@ -8,8 +8,10 @@ docker build -t mysql ./mysql/
 Docker build -t phpmyadmin ./phpmyadmin/
 # Build Wordpress
 Docker build -t wordpress ./wordpress/
-#build ftps
+# Build ftps
 Docker build -t ftps ./ftps/
+# Build Grafana
+Docker build -t grafana ./grafana/
 
 # Deploy Web-Dashboard
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
@@ -40,6 +42,11 @@ kubectl apply -f ./wordpress/wp-service.yaml
 #Deploy	ftps
 kubectl apply -f ./ftps/ftps-deployment.yaml
 kubectl apply -f ./ftps/ftps-service.yaml
+
+#Deploy Grafana
+kubectl apply -f ./grafana/grafana-deployment.yaml
+kubectl apply -f ./grafana/grafana-deployment.yaml
+
 
 kubectl apply -f ./userUI.yaml
 kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}") \
