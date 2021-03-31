@@ -8,5 +8,4 @@ spec:
     targetPort: http
   selector:
     app: influxdb
-  clusterIP: 10.96.0.1
   type: ClusterIP
