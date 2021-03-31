@@ -10,8 +10,10 @@ Docker build -t phpmyadmin ./phpmyadmin/
 Docker build -t wordpress ./wordpress/
 # Build ftps
 Docker build -t ftps ./ftps/
+# Build Telegraf
+Docker build -t telegraf ./telegraf/
 # Build InfluxDB
-Docker build -t influxdb ./influxdb
+Docker build -t influxdb ./influxdb/
 # Build Grafana
 Docker build -t grafana ./grafana/
 
@@ -47,10 +49,16 @@ kubectl apply -f ./wordpress/wp-service.yaml
 kubectl apply -f ./ftps/ftps-deployment.yaml
 kubectl apply -f ./ftps/ftps-service.yaml
 
+#Deploy Telegraf
+kubectl apply -f ./telegraf/tele-config.yaml
+kubectl apply -f ./telegraf/tele-deployment.yaml
+kubectl apply -f ./telegraf/tele-service.yaml
+
 #Deploy InfluxDB
 kubectl apply -f ./influxdb/infdb-deployment.yaml
 kubectl apply -f ./influxdb/infdb-service.yaml
 kubectl apply -f ./influxdb/infdb-claim.yaml
+
 #Deploy Grafana
 kubectl apply -f ./grafana/grafana-deployment.yaml
 kubectl apply -f ./grafana/grafana-service.yaml
