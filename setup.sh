@@ -10,8 +10,11 @@ Docker build -t phpmyadmin ./phpmyadmin/
 Docker build -t wordpress ./wordpress/
 # Build ftps
 Docker build -t ftps ./ftps/
+# Build InfluxDB
+Docker build -t influxdb ./influxdb
 # Build Grafana
 Docker build -t grafana ./grafana/
+
 
 # Deploy Web-Dashboard
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
@@ -20,7 +23,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/a
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.6/manifests/namespace.yaml
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.6/manifests/metallb.yaml
 kubectl apply -f ./metallb/metallb-deployment.yaml
-kubectl apply -f ./volume.yaml
+kubectl apply -f ./volumes/volume.yaml
 
 #Deploy nginx
 kubectl apply -f ./nginx/nginx-deployment.yaml
@@ -43,12 +46,15 @@ kubectl apply -f ./wordpress/wp-service.yaml
 kubectl apply -f ./ftps/ftps-deployment.yaml
 kubectl apply -f ./ftps/ftps-service.yaml
 
+#Deploy InfluxDB
+kubectl apply -f ./influxdb/infdb-deployment.yaml
+kubectl apply -f ./influxdb/infdb-service.yaml
+kubectl apply -f ./influxdb/infdb-claim.yaml
 #Deploy Grafana
 kubectl apply -f ./grafana/grafana-deployment.yaml
 kubectl apply -f ./grafana/grafana-service.yaml
 
-
-kubectl apply -f ./userUI.yaml
+kubectl apply -f ./metallb/userUI.yaml
 kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}") \
 -o go-template="{{.data.token | base64decode}}" | pbcopy
 kubectl proxy &
