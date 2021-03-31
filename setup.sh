@@ -24,6 +24,7 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.6/manife
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.6/manifests/metallb.yaml
 kubectl apply -f ./metallb/metallb-deployment.yaml
 kubectl apply -f ./volumes/volume.yaml
+kubectl apply -f ./volumes/infdb-vol.yaml
 
 #Deploy nginx
 kubectl apply -f ./nginx/nginx-deployment.yaml

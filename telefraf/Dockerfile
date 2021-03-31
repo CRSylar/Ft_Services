@@ -5,31 +5,22 @@
 #                                                     +:+ +:+         +:+      #
 #    By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/03/31 10:17:35 by cromalde          #+#    #+#              #
-#    Updated: 2021/03/31 11:24:48 by cromalde         ###   ########.fr        #
+#    Created: 2021/03/31 11:54:08 by cromalde          #+#    #+#              #
+#    Updated: 2021/03/31 12:31:59 by cromalde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-#		-*-		Dockerfile		-*-
 
 FROM	alpine:latest
 
 RUN		apk update && \
-		apk add --no-cache openrc libc6-compat influxdb
+		apk add --no-cache wget
 
-RUN		mkdir /etc/influxdb ; mkdir /run/openrc ; touch /run/openrc/softlevel
+RUN		wget https://dl.influxdata.com/telegraf/releases/telegraf-1.14.5-static_linux_amd64.tar.gz && \
+		tar xf telegraf-1.14.5-static_linux_amd64.tar.gz && \
+		rm -rf telegraf-1.14.5-static_linux_amd64.tar.gz
 
-RUN		mkdir /var/lib/influxdb ; cd /var/lib/influxdb/ ; mkdir meta data wal ; cd /
+RUN		cp telegraf/telegraf /usr/bin/
 
-RUN		adduser -D admin && \
-		echo "admin:password" | chpasswd
+EXPOSE	8125
 
-VOLUME	/var/lib/influxdb
-
-RUN		rc-status
-
-RUN		rc-update add influxdb
-
-COPY	influxdb.conf /etc/
-
-CMD		["influxd", "-config", "/etc/influxdb.conf"]
+CMD		["telegraf", "--config", "etc/telegraf/telegraf.conf"]
