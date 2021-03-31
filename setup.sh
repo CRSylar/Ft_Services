@@ -28,6 +28,19 @@ kubectl apply -f ./metallb/metallb-deployment.yaml
 kubectl apply -f ./volumes/volume.yaml
 kubectl apply -f ./volumes/infdb-vol.yaml
 
+#Load Grafana Dashboards
+kubectl create configmap grafana-config \
+		--from-file=./grafana/dashboards/datasource.yaml \
+		--from-file=./grafana/dashboards/dashboard.yaml \
+		--from-file=./grafana/dashboards/nginx-dashboard.json \
+		--from-file=./grafana/dashboards/mysql-dashboard.json \
+		--from-file=./grafana/dashboards/phpmyadmin-dashboard.json \
+		--from-file=./grafana/dashboards/wordpress-dashboard.json \
+		--from-file=./grafana/dashboards/influxdb-dashboard.json \
+		--from-file=./grafana/dashboards/telegraf-dashboard.json \
+		--from-file=./grafana/dashboards/ftps-dashboard.json \
+		--from-file=./grafana/dashboards/grafana-dashboard.json
+
 #Deploy nginx
 kubectl apply -f ./nginx/nginx-deployment.yaml
 kubectl apply -f ./nginx/nginx-service.yaml

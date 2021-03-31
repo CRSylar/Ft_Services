@@ -6,7 +6,7 @@
 #    By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/30 17:45:26 by cromalde          #+#    #+#              #
-#    Updated: 2021/03/30 18:37:15 by cromalde         ###   ########.fr        #
+#    Updated: 2021/03/31 17:03:24 by cromalde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,5 +25,6 @@ RUN		mkdir /var/lib/grafana && \
 RUN		mkdir -p /var/lib/grafana/dashboards /var/lib/grafana/data /var/lib/grafana/logs /var/lib/grafana/plugins
 
 RUN		mv /var/lib/grafana/bin/* usr/bin/
+
 
 CMD		["grafana-server", "--homepath=/var/lib/grafana"]
