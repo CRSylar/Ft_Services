@@ -1,6 +1,6 @@
 # Ft_Services
 
-![Cromalde's 42Project Score](https://badge42.herokuapp.com/api/project/cromalde/Ft_services)
+![Cromalde's 42Project Score](https://badge42.herokuapp.com/api/project/cromalde/ft_services)
 
 Docker & Kubernetes project
 
