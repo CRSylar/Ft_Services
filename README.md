@@ -1,6 +1,6 @@
 # Ft_Services
 
-![Cromalde's 42Project Score](https://badge42.herokuapp.com/api/project/cromalde/ft_services)
+[![cromalde's 42 ft_services Score](https://badge42.vercel.app/api/v2/cl1z1axw3001109mox1m22pjp/project/2129021)](https://github.com/JaeSeoKim/badge42)
 
 Docker & Kubernetes project
 
